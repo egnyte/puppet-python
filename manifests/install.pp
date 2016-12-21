@@ -65,7 +65,7 @@ class python::install {
       }
 
       if $pythondev {
-        package { 'python-dev':
+        package { 'pip-python-dev':
           ensure => $dev_ensure,
           name   => $pythondev,
         }
@@ -179,7 +179,7 @@ class python::install {
       }
 
       if $pythondev {
-        package { 'python-dev':
+        package { 'package-python-dev':
           ensure => $dev_ensure,
           name   => $pythondev,
         }
