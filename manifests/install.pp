@@ -58,7 +58,7 @@ class python::install {
 
   if $pythondev {
     if ! defined(Package[$pythondev]) {
-      Package { $pythondev:
+      package { $pythondev:
         ensure => $dev_ensure,
         name   => $pythondev,
       }
