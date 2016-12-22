@@ -51,9 +51,11 @@ class python::install {
     name   => $python,
   }
 
-  package { 'virtualenv':
-    ensure  => $venv_ensure,
-    require => Package['python'],
+  if ! defined(Package['virtualenv']) {
+    package { 'virtualenv':
+      ensure  => $venv_ensure,
+      require => Package['python'],
+    }
   }
 
   if $pythondev {
