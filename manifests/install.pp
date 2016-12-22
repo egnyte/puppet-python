@@ -56,19 +56,19 @@ class python::install {
     require => Package['python'],
   }
 
+  if $pythondev {
+    package { 'python-dev':
+      ensure => $dev_ensure,
+      name   => $pythondev,
+    }
+  }
+
   case $python::provider {
     pip: {
 
       package { 'pip':
         ensure  => $pip_ensure,
         require => Package['python'],
-      }
-
-      if $pythondev {
-        package { 'pip-python-dev':
-          ensure => $dev_ensure,
-          name   => $pythondev,
-        }
       }
 
       # Install pip without pip, see https://pip.pypa.io/en/stable/installing/.
@@ -176,13 +176,6 @@ class python::install {
       package { 'pip':
         ensure  => $pip_ensure,
         require => Package['python'],
-      }
-
-      if $pythondev {
-        package { 'package-python-dev':
-          ensure => $dev_ensure,
-          name   => $pythondev,
-        }
       }
 
       if $::osfamily == 'RedHat' {
