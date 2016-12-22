@@ -57,7 +57,7 @@ class python::install {
   }
 
   if $pythondev {
-    ensure_packages (['python-dev'], {
+    ensure_packages ([$pythondev], {
       ensure => $dev_ensure,
       name   => $pythondev,
     })
