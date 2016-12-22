@@ -57,10 +57,10 @@ class python::install {
   }
 
   if $pythondev {
-    package { 'python-dev':
+    ensure_packages (['python-dev'], {
       ensure => $dev_ensure,
       name   => $pythondev,
-    }
+    })
   }
 
   case $python::provider {
