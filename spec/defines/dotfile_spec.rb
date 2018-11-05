@@ -32,14 +32,14 @@ describe 'python::dotfile', type: :define do
         end
         context 'succeeds when set owner' do
           let(:title) { '/home/someuser/.pip/pip.conf' }
-          let(:params) { {'owner': 'someuser' } }
+          let(:params) { {owner: 'someuser' } }
 
           it { is_expected.to contain_exec('create /home/someuser/.pip/pip.conf\'s parent dir').with_command('install -o someuser -g root -d /home/someuser/.pip') }
           it { is_expected.to contain_file('/home/someuser/.pip/pip.conf').with_owner('someuser') }
         end
         context 'succeeds when set group set' do
           let(:title) { '/home/someuser/.pip/pip.conf' }
-          let(:params) { {'group': 'somegroup' } }
+          let(:params) { {group: 'somegroup' } }
 
           it { is_expected.to contain_exec('create /home/someuser/.pip/pip.conf\'s parent dir').with_command('install -o root -g somegroup -d /home/someuser/.pip') }
           it { is_expected.to contain_file('/home/someuser/.pip/pip.conf').with_group('somegroup') }
