@@ -225,7 +225,7 @@ define python::pip (
       'present': {
         # Whatever version is available.
         exec { "pip_install_${name}":
-          command     => "${wheel_check} ; { ${pip_install} \$wheel_support_flag ${pip_common_args} || ${pip_install} ${pip_common_args} ;}",
+          command     => "${wheel_check} ; { ${pip_install} \$wheel_support_flag ${pip_common_args}==19.3.1 || ${pip_install} ${pip_common_args}==19.3.1 ;}",
           unless      => "${pip_env} freeze --all | grep -i -e ${grep_regex} || ${pip_env} list | sed -e 's/[ ]\\+/==/' -e 's/[()]//g' | grep -i -e ${grep_regex}",
           user        => $owner,
           group       => $group,
@@ -256,7 +256,7 @@ define python::pip (
 
         # Latest version.
         exec { "pip_install_${name}":
-          command     => "${wheel_check} ; { ${pip_install} --upgrade \$wheel_support_flag ${pip_common_args} || ${pip_install} --upgrade ${pip_common_args} ;}",
+          command     => "${wheel_check} ; { ${pip_install} --upgrade \$wheel_support_flag ${pip_common_args}==19.3.1 || ${pip_install} --upgrade ${pip_common_args}==19.3.1 ;}",
           unless      => $unless_command,
           user        => $owner,
           group       => $group,
