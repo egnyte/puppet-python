@@ -37,7 +37,7 @@ define python::virtualenv (
   $systempkgs                      = false,
   $venv_dir                        = $name,
   $ensure_venv_dir                 = true,
-  $distribute                      = true,
+  $distribute                      = false,
   $index                           = false,
   $owner                           = 'root',
   $group                           = 'root',
