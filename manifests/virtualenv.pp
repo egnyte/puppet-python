@@ -136,13 +136,14 @@ define python::virtualenv (
     $pip_cmd   = "${python::exec_prefix}${venv_dir}/bin/pip"
     $pip_flags = "${pypi_index} ${proxy_flag} ${pip_args}"
 
+    $environment_hash = Hash($environment.map |$val| { $val.split(/=|$/) })
     exec { "python_virtualenv_${venv_dir}":
       command     => "${virtualenv_cmd} ${system_pkgs_flag} -p ${python} ${venv_dir} && ${pip_cmd} --log ${venv_dir}/pip.log install ${pip_flags} --upgrade pip && ${pip_cmd} install ${pip_flags} --upgrade ${distribute_pkg}",
       user        => $owner,
       creates     => "${venv_dir}/bin/activate",
       path        => $_path,
       cwd         => '/tmp',
-      environment => (($environment.map |$val| { $val.split(/=|$/) }) + $proxy_hash).map|$key, $val| { "${key}=${val}" },
+      environment => ($environment_hash + $proxy_hash).map|$key, $val| { "${key}=${val}" },
       unless      => "grep '^[\\t ]*VIRTUAL_ENV=[\\\\'\\\"]*${venv_dir}[\\\"\\\\'][\\t ]*$' ${venv_dir}/bin/activate", #Unless activate exists and VIRTUAL_ENV is correct we re-create the virtualenv
       require     => File[$venv_dir],
     }
