@@ -142,7 +142,7 @@ define python::virtualenv (
       creates     => "${venv_dir}/bin/activate",
       path        => $_path,
       cwd         => '/tmp',
-      environment => (Hash($environment.map |$val| { $val.split(/=|$/) }) + $proxy_hash).map|$key, $val| { "${key}=${val}" },
+      environment => (($environment.map |$val| { $val.split(/=|$/) }) + $proxy_hash).map|$key, $val| { "${key}=${val}" },
       unless      => "grep '^[\\t ]*VIRTUAL_ENV=[\\\\'\\\"]*${venv_dir}[\\\"\\\\'][\\t ]*$' ${venv_dir}/bin/activate", #Unless activate exists and VIRTUAL_ENV is correct we re-create the virtualenv
       require     => File[$venv_dir],
     }
